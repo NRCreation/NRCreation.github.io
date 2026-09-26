@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NRCreation Printing — Print, Scan, Undangan & Engraving</title>
+<meta name="description" content="Print, scan, pas foto, undangan, ketik surat, laminating, dan ukir laser di KPR TIP. Pesan online, konfirmasi lewat WhatsApp.">
+<meta property="og:title" content="NRCreation Printing">
+<meta property="og:description" content="Print, scan, undangan, ketik surat, laminating, ukir laser. Antar area KPR TIP.">
+<meta property="og:image" content="https://nrcreation.netlify.app/og.png">
+<meta property="og:url" content="https://nrcreation.netlify.app/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='9' cy='9' r='7' fill='%230098D4'/%3E%3Ccircle cx='23' cy='9' r='7' fill='%23D1006F'/%3E%3Ccircle cx='9' cy='23' r='7' fill='%23FFCC00'/%3E%3Ccircle cx='23' cy='23' r='7' fill='%231C2230'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ===== EDIT DI SINI: warna ===== */
+:root{
+  --paper:#F5F7FA; --white:#FFFFFF; --key:#1C2230; --muted:#5B6475;
+  --cyan:#0098D4; --magenta:#D1006F; --yellow:#FFCC00; --line:#D9DEE7;
+  --r-sm:6px; --r-lg:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--key);line-height:1.55;font-size:16px}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.1;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:var(--white);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:8px}
+.dots{display:flex;gap:3px}.dots i{width:9px;height:9px;border-radius:50%;display:block}
+.cart-btn{background:var(--key);color:#fff;border:0;border-radius:999px;padding:9px 16px;font-weight:600;cursor:pointer}
+.cart-btn b{background:var(--yellow);color:var(--key);border-radius:999px;padding:0 8px;margin-left:6px}
+
+/* hero: crop marks + color bar */
+.hero{padding:44px 0 36px}
+.sheet{position:relative;background:var(--white);padding:40px 28px 32px;border-radius:2px;box-shadow:0 1px 0 var(--line)}
+.crop{position:absolute;width:22px;height:22px;border-color:var(--key)}
+.crop.tl{top:-10px;left:-10px;border-top:1.5px solid;border-left:1.5px solid}
+.crop.tr{top:-10px;right:-10px;border-top:1.5px solid;border-right:1.5px solid}
+.crop.bl{bottom:-10px;left:-10px;border-bottom:1.5px solid;border-left:1.5px solid}
+.crop.br{bottom:-10px;right:-10px;border-bottom:1.5px solid;border-right:1.5px solid}
+.hero h1{font-size:clamp(2.1rem,6vw,3.6rem);font-weight:800;max-width:14ch}
+.hero p.lead{color:var(--muted);max-width:52ch;margin-top:14px;font-size:1.05rem}
+.colorbar{display:grid;grid-template-columns:repeat(4,1fr);height:14px;margin-top:28px;border-radius:2px;overflow:hidden}
+.colorbar span:nth-child(1){background:var(--cyan)}.colorbar span:nth-child(2){background:var(--magenta)}
+.colorbar span:nth-child(3){background:var(--yellow)}.colorbar span:nth-child(4){background:var(--key)}
+@media (prefers-reduced-motion:no-preference){
+  .colorbar span{transform:scaleX(0);transform-origin:left;animation:ink .5s ease-out forwards}
+  .colorbar span:nth-child(2){animation-delay:.12s}.colorbar span:nth-child(3){animation-delay:.24s}.colorbar span:nth-child(4){animation-delay:.36s}
+  @keyframes ink{to{transform:scaleX(1)}}
+}
+
+/* calculator */
+.calc{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;align-items:end}
+label{font-size:.85rem;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--white)}
+.calc-out{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border-top:1px dashed var(--line);padding-top:14px}
+.calc-out strong{font-family:"Bricolage Grotesque",sans-serif;font-size:1.6rem}
+.btn{border:0;border-radius:var(--r-sm);padding:11px 18px;font-weight:600;cursor:pointer}
+.btn-key{background:var(--key);color:#fff}.btn-wa{background:#1FA855;color:#fff}
+.btn-ghost{background:transparent;border:1px solid var(--line)}
+
+/* catalog */
+section{padding:34px 0}
+h2{font-size:clamp(1.5rem,3.5vw,2rem);margin-bottom:6px}
+.sub{color:var(--muted);margin-bottom:18px;max-width:60ch}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px}
+.tab{white-space:nowrap;border:1px solid var(--line);background:var(--white);border-radius:999px;padding:8px 14px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--key);color:#fff;border-color:var(--key)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.item{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;display:flex;flex-direction:column;gap:8px;cursor:pointer;text-align:left}
+.item .sw{height:6px;width:40px;border-radius:3px}
+.item h3{font-size:1.08rem}
+.item p{color:var(--muted);font-size:.92rem;flex:1}
+.price{font-weight:600}.price small{color:var(--muted);font-weight:400}
+.note{font-size:.8rem;color:var(--muted)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;counter-reset:s}
+.step{border-left:3px solid var(--cyan);padding:4px 0 4px 14px}
+.step:nth-child(2){border-color:var(--magenta)}.step:nth-child(3){border-color:var(--yellow)}.step:nth-child(4){border-color:var(--key)}
+.step h3{font-size:1rem;margin-bottom:4px}.step h3::before{counter-increment:s;content:counter(s) ". "}
+.step p{color:var(--muted);font-size:.93rem}
+
+/* faq */
+details{background:var(--white);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 16px;margin-bottom:8px}
+summary{cursor:pointer;font-weight:600}details p{color:var(--muted);margin-top:8px}
+
+footer{background:var(--key);color:#DCE1EA;padding:30px 0;margin-top:20px;font-size:.93rem}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+footer h3{color:#fff;font-size:1rem;margin-bottom:6px}
+
+/* modal & drawer */
+.overlay{position:fixed;inset:0;background:rgba(28,34,48,.45);display:none;z-index:40}
+.overlay.open{display:block}
+.panel{position:fixed;z-index:50;background:var(--white);display:none;flex-direction:column;overflow:auto}
+.panel.open{display:flex}
+.modal{left:50%;top:50%;transform:translate(-50%,-50%);width:min(520px,94vw);max-height:92vh;border-radius:var(--r-lg);padding:22px;gap:12px}
+.drawer{right:0;top:0;bottom:0;width:min(420px,100vw);padding:22px;gap:12px}
+.panel-head{display:flex;justify-content:space-between;align-items:start;gap:10px}
+.x{background:none;border:0;font-size:1.6rem;line-height:1;cursor:pointer;color:var(--muted)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.total{display:flex;justify-content:space-between;font-weight:600;font-size:1.1rem;border-top:1px solid var(--line);padding-top:12px}
+.line{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding:10px 0}
+.line small{color:var(--muted);display:block}
+.rm{background:none;border:0;color:var(--magenta);cursor:pointer;font-size:.85rem}
+.empty{color:var(--muted);padding:20px 0}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--key);color:#fff;padding:10px 18px;border-radius:999px;display:none;z-index:60}
+.toast.show{display:block}
+.warn{background:#FFF6D6;border-left:3px solid var(--yellow);padding:8px 12px;font-size:.85rem;border-radius:4px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo"><span class="dots"><i style="background:var(--cyan)"></i><i style="background:var(--magenta)"></i><i style="background:var(--yellow)"></i><i style="background:var(--key)"></i></span><span id="shopName">NRCreation Printing</span></div>
+    <button class="cart-btn" onclick="openCart()" aria-label="Buka keranjang">Keranjang <b id="cartCount">0</b></button>
+  </div>
+</header>
+
+<main>
+<div class="wrap hero">
+  <div class="sheet">
+    <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+    <h1>Kirim file dari HP, ambil hasilnya siap pakai.</h1>
+    <p class="lead">Print Word, PDF, Excel, scan dokumen, undangan acara, ketik surat, laminating, dan ukir laser. Pesan di sini, konfirmasi lewat WhatsApp.</p>
+    <div class="colorbar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+    <div class="calc" aria-label="Hitung biaya print">
+      <div><label for="cPages">Jumlah halaman</label><input id="cPages" type="number" min="1" value="10"></div>
+      <div><label for="cCopies">Jumlah rangkap</label><input id="cCopies" type="number" min="1" value="1"></div>
+      <div><label for="cColor">Warna</label><select id="cColor"><option value="bw">Hitam-putih</option><option value="half">Warna separo</option><option value="full">Warna full</option><option value="thick">Warna full, kertas tebal 160 gsm</option></select></div>
+      <div><label for="cSize">Ukuran kertas</label><select id="cSize"><option value="A4">A4</option><option value="F4">F4 / Folio</option></select></div>
+      <div><label for="cSide">Sisi</label><select id="cSide"><option value="1">1 sisi</option><option value="2">Bolak-balik</option></select></div>
+      <div class="calc-out">
+        <div><span class="note" id="cDetail"></span><br><strong id="cTotal">Rp0</strong></div>
+        <button class="btn btn-key" onclick="addCalc()">Masukkan ke keranjang</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="layanan">
+  <div class="wrap">
+    <h2>Layanan</h2>
+    <p class="sub">Harga di bawah adalah harga mulai. Harga akhir dikonfirmasi admin setelah file dicek.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Cara pesan</h2>
+    <p class="sub">Tidak perlu daftar akun.</p>
+    <div class="steps">
+      <div class="step"><h3>Pilih layanan</h3><p>Masukkan ke keranjang, atur jumlah dan opsinya.</p></div>
+      <div class="step"><h3>Kirim pesanan ke WhatsApp</h3><p>Sertakan link Google Drive, atau kirim file langsung di chat.</p></div>
+      <div class="step"><h3>Cek dan bayar</h3><p>Admin cek file dan konfirmasi total. Bayar transfer, QRIS, atau tunai saat ambil.</p></div>
+      <div class="step"><h3>Ambil atau diantar</h3><p>Ambil di toko, atau diantar khusus area KPR TIP untuk pesanan minimal Rp30.000.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Pertanyaan umum</h2>
+    <details><summary>File apa saja yang bisa dicetak?</summary><p>Word (.doc/.docx), PDF, Excel (.xls/.xlsx), JPG/PNG. Kirim PDF kalau ingin tata letak pasti sama, karena Word dan Excel bisa bergeser di komputer lain.</p></details>
+    <details><summary>Apakah bisa diantar?</summary><p>Bisa, khusus area KPR TIP dengan minimal pesanan Rp30.000. Di luar area itu, pesanan diambil di toko: KPR TIP, RT 33, Blok D3 No. 15.</p></details>
+    <details><summary>Berapa lama pengerjaan?</summary><p>Print dan scan biasa selesai di hari yang sama. Undangan 3–7 hari kerja setelah desain disetujui. Engraving souvenir massal 3–5 hari kerja tergantung jumlah.</p></details>
+    <details><summary>Apakah jasa ketik dokumen legal termasuk konsultasi hukum?</summary><p>Tidak. Kami mengetik dan merapikan dokumen berdasarkan format umum dan data dari Anda. Isi dan keabsahan dokumen tanggung jawab pemesan. Untuk akta atau perjanjian bernilai besar, gunakan notaris.</p></details>
+    <details><summary>Bahan apa yang bisa diukir laser?</summary><p>Kayu, bambu, MDF, kulit, kertas tebal, dan akrilik berwarna gelap. Kaca dan logam polos tidak bisa diukir dengan mesin kami. Bawa barang Anda sendiri untuk dicoba dulu.</p></details>
+    <details><summary>Apakah data dan file saya aman?</summary><p>File dihapus dari komputer toko setelah pesanan selesai. Dokumen pribadi seperti KTP dan KK tidak kami simpan.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div><h3 id="footName">NRCreation Printing</h3><p id="footAddr">KPR TIP, RT 33, Blok D3 No. 15</p><p>Antar khusus area KPR TIP, minimal pesanan Rp30.000</p></div>
+    <div><h3>Jam buka</h3><p id="footHours">Senin–Sabtu 08.00–21.00<br>Minggu 13.00–21.00</p></div>
+    <div><h3>Kontak</h3><p>WhatsApp: <span id="footWa"></span></p></div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<div class="panel modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="panel-head"><div><h3 id="mTitle"></h3><p class="note" id="mDesc"></p></div><button class="x" onclick="closeAll()" aria-label="Tutup">×</button></div>
+  <div id="mOpts"></div>
+  <div class="row">
+    <div><label for="mQty">Jumlah (<span id="mUnit"></span>)</label><input id="mQty" type="number" min="1"></div>
+    <div><label for="mNote">Catatan</label><input id="mNote" placeholder="mis. nama lengkap"></div>
+  </div>
+  <p class="warn" id="mWarn" hidden></p>
+  <div class="total"><span>Subtotal</span><span id="mTotal"></span></div>
+  <button class="btn btn-key" onclick="addFromModal()">Masukkan ke keranjang</button>
+</div>
+
+<div class="panel drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="panel-head"><h3 id="dTitle">Keranjang</h3><button class="x" onclick="closeAll()" aria-label="Tutup">×</button></div>
+  <div id="lines"></div>
+  <div class="total"><span>Estimasi total</span><span id="dTotal">Rp0</span></div>
+  <p class="note" id="dHint"></p>
+  <div><label for="fName">Nama</label><input id="fName" autocomplete="name"></div>
+  <div class="row">
+    <div><label for="fPick">Pengambilan</label><select id="fPick"><option>Ambil di toko</option><option value="antar">Antar (area KPR TIP, min. Rp30.000)</option></select></div>
+    <div><label for="fDue">Butuh kapan</label><input id="fDue" type="date"></div>
+  </div>
+  <div><label for="fLink">Link file (Google Drive, opsional)</label><input id="fLink" placeholder="https://drive.google.com/..."></div>
+  <div><label for="fAddr">Alamat di KPR TIP (RT/blok/no.) / catatan</label><textarea id="fAddr" rows="2"></textarea></div>
+  <button class="btn btn-wa" onclick="checkout()">Kirim pesanan ke WhatsApp</button>
+  <button class="btn btn-ghost" onclick="clearCart()">Kosongkan keranjang</button>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===================== EDIT DI SINI ===================== */
+const SHOP = {
+  name: "NRCreation Printing",
+  wa: "6288286656963",           // nomor WA admin, format 62xxx tanpa + dan spasi
+};
+// Harga print (Rp per halaman cetak)
+const DELIVERY = { area:"KPR TIP", min:30000 };
+const PRINT = { bw:1000, half:1500, full:2000, thick:4000, F4add:0, duplexAdd:0 }; // harga per halaman, file siap cetak
+
+// Katalog: price = harga dasar per unit; opts = pilihan yang menambah harga (add) per unit
+const CATS = [
+  {id:"print", name:"Print & scan", sw:"var(--cyan)"},
+  {id:"undangan", name:"Undangan & acara", sw:"var(--magenta)"},
+  {id:"ketik", name:"Ketik & dokumen", sw:"var(--key)"},
+  {id:"laminating", name:"Laminating", sw:"var(--yellow)"},
+  {id:"laser", name:"Laser engraving", sw:"var(--magenta)"},
+  {id:"umkm", name:"UMKM & kantor", sw:"var(--cyan)"},
+];
+const PRODUCTS = [
+  // Print & scan
+  {id:"p1",cat:"print",name:"Print HVS",desc:"Word, PDF, Excel. Harga per lembar.",price:1000,unit:"lembar",min:1,
+   opts:[{label:"Jenis",choices:[["Hitam-putih, file siap cetak",0],["Warna separo, file siap cetak",500],["Warna full, file siap cetak",1000],["Warna separo + diketik",1000],["Warna full + edit/ketik",1500]]},{label:"Ukuran",choices:[["A4",0],["F4",0]]}]},
+  {id:"p2",cat:"print",name:"Print kertas tebal",desc:"Warna full, kertas 160 gsm.",price:4000,unit:"lembar",min:1,opts:[]},
+  {id:"p3",cat:"print",name:"Scan dokumen",desc:"Hasil PDF atau JPG, dikirim via WA atau email.",price:2000,unit:"lembar",min:1,
+   opts:[{label:"Hasil",choices:[["PDF 1 file",0],["JPG per halaman",0],["Bisa diedit (OCR ke Word)",3000]]}]},
+  {id:"p4",cat:"print",name:"Scan + print (fotokopi)",desc:"Dokumen fisik di-scan lalu dicetak.",price:1000,unit:"lembar",min:1,
+   opts:[{label:"Warna",choices:[["Hitam-putih",0],["Warna",1000]]}]},
+  {id:"p5",cat:"print",name:"Pas foto",desc:"Harga per set.",price:5000,unit:"set",min:1,
+   opts:[{label:"Ukuran",choices:[["2x3 (isi 5)",0],["3x4 (isi 4)",0],["4x6 (isi 3)",0]]}]},
+  {id:"p6",cat:"print",name:"Cetak foto",desc:"Dari file foto di HP Anda.",price:3000,unit:"lembar",min:1,
+   opts:[{label:"Ukuran",choices:[["3R",0],["4R",2000],["5R",3000],["10R",9000]]}]},
+  // Undangan
+  {id:"u1",cat:"undangan",name:"Undangan pernikahan",desc:"Harga mulai Rp1.500, tergantung desain.",price:1500,
+   warn:"Desain didiskusikan dulu dengan admin via WhatsApp. Harga final mengikuti desain yang dipilih.",unit:"pcs",min:100,
+   opts:[{label:"Model",choices:[["Kartu 1 lembar",0],["Lipat 2",1500]]},{label:"Amplop",choices:[["Tanpa amplop",0],["Dengan amplop",700]]}]},
+  {id:"u2",cat:"undangan",name:"Undangan aqiqah / tasyakuran / khitanan",desc:"Ukuran 1/3 A4 atau A6.",price:1500,unit:"pcs",min:50,
+   opts:[{label:"Kertas",choices:[["HVS 100 gr",0],["Art carton 230 gr",800]]}]},
+  {id:"u3",cat:"undangan",name:"Undangan digital",desc:"Desain gambar untuk disebar via WhatsApp.",price:50000,unit:"desain",min:1,
+   opts:[{label:"Paket",choices:[["Gambar saja",0],["Gambar + versi cetak",25000]]}]},
+  {id:"u4",cat:"undangan",name:"Label nama tamu",desc:"Stiker label, dari daftar Excel Anda.",price:5000,unit:"lembar",min:1,opts:[]},
+  {id:"u5",cat:"undangan",name:"Kartu terima kasih / tag souvenir",desc:"Pasangan undangan, desain senada.",price:500,unit:"pcs",min:100,opts:[]},
+  {id:"u6",cat:"undangan",name:"Huruf timbul",desc:"Tinggi 17 cm, harga per huruf.",price:2000,unit:"huruf",min:1,opts:[]},
+  // Ketik
+  {id:"k1",cat:"ketik",name:"Ketik ulang dokumen",desc:"Dari tulisan tangan atau foto dokumen.",price:3000,unit:"halaman",min:1,
+   opts:[{label:"Isi",choices:[["Teks biasa",0],["Ada tabel",3000]]}]},
+  {id:"k2",cat:"ketik",name:"Surat & dokumen administrasi",desc:"Surat kuasa, pernyataan, keterangan, perjanjian jual beli sederhana. Format umum, bukan konsultasi hukum.",price:5000,unit:"dokumen",min:1,
+   warn:"Isi dan keabsahan dokumen tanggung jawab pemesan. Meterai disiapkan sendiri.",opts:[]},
+  {id:"k3",cat:"ketik",name:"Surat lamaran + CV",desc:"Siap cetak dan PDF untuk lamaran online.",price:25000,unit:"paket",min:1,opts:[]},
+  {id:"k4",cat:"ketik",name:"Bantu isi formulir online",desc:"Pendaftaran sekolah, kerja, layanan publik.",price:15000,unit:"formulir",min:1,opts:[]},
+  {id:"k5",cat:"ketik",name:"Olah file PDF",desc:"Gabung, pecah, kompres, PDF ke Word.",price:5000,unit:"file",min:1,opts:[]},
+  // Laminating
+  {id:"l1",cat:"laminating",name:"Laminating kartu",desc:"KTP, kartu pelajar, SIM (fotokopi).",price:3000,unit:"pcs",min:1,opts:[]},
+  {id:"l2",cat:"laminating",name:"Laminating dokumen",desc:"Ijazah (fotokopi), sertifikat, jadwal.",price:5000,unit:"lembar",min:1,
+   opts:[{label:"Ukuran",choices:[["A4",0],["F4",0]]}]},
+  // Laser
+  {id:"e1",cat:"laser",name:"Gantungan kunci kayu",desc:"Nama, logo, atau tanggal acara.",price:12000,unit:"pcs",min:1,
+   opts:[{label:"Pesanan",choices:[["Satuan",0],["Souvenir 50 pcs ke atas",-5000]]}]},
+  {id:"e2",cat:"laser",name:"Souvenir nikah / aqiqah ukir",desc:"Talenan, sendok, atau centong kayu ukir nama.",price:10000,unit:"pcs",min:50,
+   opts:[{label:"Barang",choices:[["Sendok / centong kayu",0],["Talenan mini",8000]]}]},
+  {id:"e3",cat:"laser",name:"Papan nama / plakat kayu",desc:"Pintu rumah, meja kantor, kenang-kenangan.",price:75000,unit:"pcs",min:1,
+   opts:[{label:"Ukuran",choices:[["20x10 cm",0],["30x20 cm",45000]]}]},
+  {id:"e4",cat:"laser",name:"Ukir di barang Anda",desc:"Dompet kulit, kotak kayu, bambu. Barang dibawa sendiri.",price:15000,unit:"titik",min:1,
+   warn:"Bahan dicek dulu di toko sebelum diukir.",opts:[]},
+  {id:"e5",cat:"laser",name:"Name tag akrilik",desc:"Akrilik warna gelap, ukir nama dan jabatan.",price:20000,unit:"pcs",min:1,opts:[]},
+  // UMKM
+  {id:"m1",cat:"umkm",name:"Stiker label produk",desc:"Untuk kemasan makanan dan minuman UMKM.",price:8000,unit:"lembar A4",min:1,
+   opts:[{label:"Finishing",choices:[["Tanpa laminasi",0],["Laminasi doff",5000]]}]},
+  {id:"m2",cat:"umkm",name:"Kartu nama",desc:"Art carton 260 gr, 1 box isi 50.",price:30000,unit:"box",min:1,
+   opts:[{label:"Sisi",choices:[["1 sisi",0],["2 sisi",15000]]}]},
+  {id:"m3",cat:"umkm",name:"Sertifikat / piagam",desc:"Bolak-balik, kertas tebal 200 gsm.",price:4500,unit:"lembar",min:1,
+   opts:[{label:"Ukuran",choices:[["A4",0],["F4",2000]]}]},
+  {id:"m4",cat:"umkm",name:"ID card",desc:"Print + laminating, siap dipasang tali.",price:10000,unit:"pcs",min:1,opts:[]},
+];
+/* ======================================================== */
+
+const rp = n => "Rp" + Math.round(n).toLocaleString("id-ID");
+const $ = id => document.getElementById(id);
+let cart = [], current = null, activeCat = "print";
+
+["shopName","footName"].forEach(i=>$(i).textContent=SHOP.name);
+$("footWa").textContent = "+" + SHOP.wa;
+
+// Tabs & grid
+function renderTabs(){
+  $("tabs").innerHTML = CATS.map(c=>`<button class="tab" role="tab" aria-selected="${c.id===activeCat}" onclick="setCat('${c.id}')">${c.name}</button>`).join("");
+}
+function setCat(id){activeCat=id;renderTabs();renderGrid();}
+function renderGrid(){
+  const cat = CATS.find(c=>c.id===activeCat);
+  $("grid").innerHTML = PRODUCTS.filter(p=>p.cat===activeCat).map(p=>`
+    <button class="item" onclick="openProduct('${p.id}')">
+      <span class="sw" style="background:${cat.sw}"></span>
+      <h3>${p.name}</h3><p>${p.desc}</p>
+      <span class="price">${rp(p.price)} <small>/ ${p.unit}</small></span>
+      ${p.min>1?`<span class="note">Minimal ${p.min} ${p.unit}</span>`:""}
+    </button>`).join("");
+}
+
+// Calculator
+function calc(){
+  const pages=Math.max(1,+$("cPages").value||1), copies=Math.max(1,+$("cCopies").value||1);
+  const color=$("cColor").value, size=$("cSize").value, duplex=$("cSide").value==="2";
+  let per = PRINT[color] + (size==="F4"?PRINT.F4add:0) + (duplex?PRINT.duplexAdd:0);
+  const total = per*pages*copies;
+  const sheets = duplex?Math.ceil(pages/2)*copies:pages*copies;
+  $("cTotal").textContent = rp(total);
+  $("cDetail").textContent = `${pages} hal × ${copies} rangkap × ${rp(per)} · ±${sheets} lembar kertas`;
+  return {total, label:`Print ${({bw:"hitam-putih",half:"warna separo",full:"warna full",thick:"warna full 160 gsm"})[color]} ${size}, ${duplex?"bolak-balik":"1 sisi"}`, qty:pages*copies, per};
+}
+["cPages","cCopies","cColor","cSize","cSide"].forEach(i=>$(i).addEventListener("input",calc));
+function addCalc(){
+  const c=calc();
+  cart.push({name:c.label, detail:`${$("cPages").value} halaman × ${$("cCopies").value} rangkap`, qty:c.qty, unit:"hal", per:c.per});
+  updateCart(); toast("Masuk keranjang");
+}
+
+// Product modal
+function openProduct(id){
+  current = PRODUCTS.find(p=>p.id===id);
+  $("mTitle").textContent=current.name; $("mDesc").textContent=current.desc;
+  $("mUnit").textContent=current.unit; $("mQty").min=current.min; $("mQty").value=current.min; $("mNote").value="";
+  $("mOpts").innerHTML = current.opts.map((o,i)=>`
+    <div style="margin-bottom:10px"><label for="o${i}">${o.label}</label>
+    <select id="o${i}">${o.choices.map((c,j)=>`<option value="${j}">${c[0]}${c[1]>0?` (+${rp(c[1])})`:c[1]<0?` (−${rp(-c[1])})`:""}</option>`).join("")}</select></div>`).join("");
+  current.opts.forEach((_,i)=>$("o"+i).addEventListener("change",modalTotal));
+  $("mWarn").hidden=!current.warn; $("mWarn").textContent=current.warn||"";
+  modalTotal(); openPanel("modal"); $("mQty").focus();
+}
+function modalPer(){
+  return current.price + current.opts.reduce((s,o,i)=>s+o.choices[+$("o"+i).value][1],0);
+}
+function modalTotal(){
+  const q=Math.max(current.min,+$("mQty").value||current.min);
+  $("mTotal").textContent = rp(modalPer()*q);
+}
+$("mQty").addEventListener("input",modalTotal);
+function addFromModal(){
+  const q=+$("mQty").value;
+  if(!q||q<current.min){toast(`Minimal ${current.min} ${current.unit}`);return;}
+  const opt=current.opts.map((o,i)=>o.choices[+$("o"+i).value][0]).join(", ");
+  const note=$("mNote").value.trim();
+  cart.push({name:current.name, detail:[opt,note].filter(Boolean).join(" | "), qty:q, unit:current.unit, per:modalPer()});
+  updateCart(); closeAll(); toast("Masuk keranjang");
+}
+
+// Cart
+function updateCart(){
+  $("cartCount").textContent=cart.length;
+  $("lines").innerHTML = cart.length? cart.map((c,i)=>`
+    <div class="line"><div><strong>${c.name}</strong><small>${c.detail||""}</small><small>${c.qty} ${c.unit} × ${rp(c.per)}</small>
+    <button class="rm" onclick="removeItem(${i})">Hapus</button></div><div>${rp(c.qty*c.per)}</div></div>`).join("")
+    : `<p class="empty">Keranjang masih kosong. Pilih layanan atau hitung biaya print di atas.</p>`;
+  const t=cart.reduce((s,c)=>s+c.qty*c.per,0);
+  $("dTotal").textContent = rp(t);
+  $("dHint").textContent = t>=DELIVERY.min ? `Bisa diantar ke area ${DELIVERY.area}.` : `Tambah ${rp(DELIVERY.min-t)} lagi agar bisa diantar ke area ${DELIVERY.area}.`;
+}
+function removeItem(i){cart.splice(i,1);updateCart();}
+function clearCart(){cart=[];updateCart();}
+function openCart(){updateCart();openPanel("drawer");}
+
+function checkout(){
+  if(!cart.length){toast("Keranjang masih kosong");return;}
+  const name=$("fName").value.trim();
+  if(!name){toast("Isi nama dulu");$("fName").focus();return;}
+  const total=cart.reduce((s,c)=>s+c.qty*c.per,0);
+  const antar=$("fPick").value==="antar";
+  if(antar&&total<DELIVERY.min){toast(`Antar minimal ${rp(DELIVERY.min)}. Kurang ${rp(DELIVERY.min-total)}.`);return;}
+  if(antar&&!$("fAddr").value.trim()){toast("Isi alamat di "+DELIVERY.area);$("fAddr").focus();return;}
+  let msg=`Halo ${SHOP.name}, saya mau pesan:\n\n`;
+  cart.forEach((c,i)=>{msg+=`${i+1}. ${c.name}\n   ${c.detail?c.detail+"\n   ":""}${c.qty} ${c.unit} × ${rp(c.per)} = ${rp(c.qty*c.per)}\n`;});
+  msg+=`\nEstimasi total: ${rp(total)}\nNama: ${name}\nPengambilan: ${$("fPick").value}`;
+  if($("fDue").value) msg+=`\nButuh tanggal: ${$("fDue").value}`;
+  if($("fLink").value.trim()) msg+=`\nLink file: ${$("fLink").value.trim()}`;
+  if($("fAddr").value.trim()) msg+=`\nCatatan/alamat: ${$("fAddr").value.trim()}`;
+  msg+=`\n\n(File akan saya kirim di chat ini jika belum ada link)`;
+  window.open(`https://wa.me/${SHOP.wa}?text=${encodeURIComponent(msg)}`,"_blank");
+}
+
+// Panels
+let lastFocus=null;
+function openPanel(id){lastFocus=document.activeElement;$("overlay").classList.add("open");$(id).classList.add("open");}
+function closeAll(){["overlay","modal","drawer"].forEach(i=>$(i).classList.remove("open"));if(lastFocus)lastFocus.focus();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),1800);}
+
+renderTabs(); renderGrid(); calc(); updateCart();
+</script>
+</body>
+</html>
