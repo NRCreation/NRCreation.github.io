@@ -7,8 +7,8 @@
 <meta name="description" content="Print, scan, pas foto, undangan, ketik surat, laminating, dan ukir laser di KPR TIP. Pesan online, konfirmasi lewat WhatsApp.">
 <meta property="og:title" content="NRCreation Printing">
 <meta property="og:description" content="Print, scan, undangan, ketik surat, laminating, ukir laser. Antar area KPR TIP.">
-<meta property="og:image" content="https://nrcreation.netlify.app/og.png">
-<meta property="og:url" content="https://nrcreation.netlify.app/">
+<meta property="og:image" content="https://nrcreation.github.io/og.png">
+<meta property="og:url" content="https://nrcreation.github.io/">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='9' cy='9' r='7' fill='%230098D4'/%3E%3Ccircle cx='23' cy='9' r='7' fill='%23D1006F'/%3E%3Ccircle cx='9' cy='23' r='7' fill='%23FFCC00'/%3E%3Ccircle cx='23' cy='23' r='7' fill='%231C2230'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -273,6 +273,9 @@ const PRODUCTS = [
   {id:"k5",cat:"ketik",name:"Olah file PDF",desc:"Gabung, pecah, kompres, PDF ke Word.",price:5000,unit:"file",min:1,opts:[]},
   // Laminating
   {id:"l1",cat:"laminating",name:"Laminating kartu",desc:"KTP, kartu pelajar, SIM (fotokopi).",price:3000,unit:"pcs",min:1,opts:[]},
+  {id:"l4",cat:"laminating",name:"Cetak + laminating kartu KIS / BPJS",desc:"Dicetak dari kartu digital resmi milik Anda (Mobile JKN, dll), lalu dilaminating.",price:5000,unit:"pcs",min:1,
+   warn:"Kami hanya mencetak kartu digital resmi milik pemesan. Kami tidak menerbitkan kartu atau mengubah data di dalamnya.",
+   opts:[{label:"Jenis kartu",choices:[["KIS / BPJS Kesehatan",0],["BPJS Ketenagakerjaan",0],["KIP (Kartu Indonesia Pintar)",0],["Kartu lain yang setara",0]]}]},
   {id:"l2",cat:"laminating",name:"Laminating dokumen",desc:"Ijazah (fotokopi), sertifikat, jadwal.",price:5000,unit:"lembar",min:1,
    opts:[{label:"Ukuran",choices:[["A4",0],["F4",0]]}]},
   // Laser
